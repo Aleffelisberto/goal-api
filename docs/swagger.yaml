@@ -1,0 +1,49 @@
+basePath: /
+definitions:
+  config.TeamCreate:
+    properties:
+      abbreviation:
+        example: ABCD
+        type: string
+      country:
+        example: Brasil
+        type: string
+      name:
+        example: Nome da equipe
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Goal API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Goal API
+  version: "1.0"
+paths:
+  /teams:
+    post:
+      consumes:
+      - application/json
+      description: Create a team
+      parameters:
+      - description: Informações do time a ser criado
+        in: body
+        name: team
+        required: true
+        schema:
+          $ref: '#/definitions/config.TeamCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create a team
+      tags:
+      - Team
+swagger: "2.0"
