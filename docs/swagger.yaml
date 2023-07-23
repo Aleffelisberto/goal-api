@@ -1,5 +1,26 @@
 basePath: /
 definitions:
+  config.Team:
+    properties:
+      abbreviation:
+        example: ABCD
+        type: string
+      country:
+        example: Brasil
+        type: string
+      created_at:
+        example: 2023/07/22 22:35:22
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: Nome da equipe
+        type: string
+      updated_at:
+        example: 2023/07/22 22:35:22
+        type: string
+    type: object
   config.TeamCreate:
     properties:
       abbreviation:
@@ -23,6 +44,24 @@ info:
   version: "1.0"
 paths:
   /teams:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of teams
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/config.Team'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: List teams
+      tags:
+      - Team
     post:
       consumes:
       - application/json

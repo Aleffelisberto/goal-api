@@ -22,6 +22,33 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/teams": {
+            "get": {
+                "description": "Get a list of teams",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Team"
+                ],
+                "summary": "List teams",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/config.Team"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
             "post": {
                 "description": "Create a team",
                 "consumes": [
@@ -60,6 +87,35 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "config.Team": {
+            "type": "object",
+            "properties": {
+                "abbreviation": {
+                    "type": "string",
+                    "example": "ABCD"
+                },
+                "country": {
+                    "type": "string",
+                    "example": "Brasil"
+                },
+                "created_at": {
+                    "type": "string",
+                    "example": "2023/07/22 22:35:22"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Nome da equipe"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "2023/07/22 22:35:22"
+                }
+            }
+        },
         "config.TeamCreate": {
             "type": "object",
             "properties": {
