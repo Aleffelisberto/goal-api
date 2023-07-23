@@ -24,6 +24,15 @@ type TeamCreate struct {
 	Country      string `json:"country" example:"Brasil"`
 }
 
+type Team struct {
+	ID           int    `json:"id" example:"1"`
+	Name         string `json:"name" example:"Nome da equipe"`
+	Abbreviation string `json:"abbreviation" example:"ABCD"`
+	Country      string `json:"country" example:"Brasil"`
+	CreatedAt    string `json:"created_at" example:"2023/07/22 22:35:22"`
+	UpdatedAt    string `json:"updated_at" example:"2023/07/22 22:35:22"`
+}
+
 // CreateTeam
 //
 //	@Summary		Create a team
@@ -41,6 +50,21 @@ func CreateTeam(w http.ResponseWriter, r *http.Request) {
 	teamHandlers.CreateTeamHandler(w, r)
 }
 
+// ListTeams
+//
+// @Summary		List teams
+// @Description	Get a list of teams
+// @Tags			Team
+// @Accept		json
+// @Produce		json
+// @Success		200	{array} Team
+// @Failure		500
+// @Router		/teams [GET]
+func ListTeams(w http.ResponseWriter, r *http.Request) {
+	teamHandlers := handlers_factory.MakeTeamHandlers(db.GetGoquInstance())
+	teamHandlers.ListTeamsHandler(w, r)
+}
+
 // @title			Goal API
 // @version		1.0
 // @description	Goal API
@@ -54,6 +78,7 @@ func Router() *mux.Router {
 	router.HandleFunc("/", version)
 	router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
+	router.HandleFunc("/teams", ListTeams).Methods("GET")
 	router.HandleFunc("/teams", CreateTeam).Methods("POST")
 
 	return router
