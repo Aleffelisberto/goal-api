@@ -2,7 +2,7 @@ package main
 
 import (
 	"goal-api/cmd/app/config"
-	"goal-api/internal/infra/db/postgres"
+	"goal-api/internal/infra/db"
 	"log"
 	"net/http"
 
@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	postgres.Init()
-	defer postgres.GetInstance().Close()
+	db.Init()
+	defer db.GetDBInstance().Close()
 	router := config.Router()
 	go log.Fatal(http.ListenAndServe(":8000", router))
 }
