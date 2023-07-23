@@ -11,7 +11,8 @@ import (
 func MakeTeamHandlers(db *goqu.Database) *web.TeamHandlers {
 	teamRepository := rgoqu.NewTeamRepositoryGoqu(db)
 	createTeamUseCase := usecases.MakeCreateTeamUseCase(teamRepository)
-	teamHandlers := web.NewTeamHandlers(createTeamUseCase)
+	listTeamsUseCase := usecases.MakeListTeamsUseCase(teamRepository)
+	teamHandlers := web.NewTeamHandlers(createTeamUseCase, listTeamsUseCase)
 
 	return teamHandlers
 }
