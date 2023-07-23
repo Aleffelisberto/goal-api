@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
 
-	"goal-api/internal/infra/db/postgres"
+	"goal-api/internal/infra/db"
 	"goal-api/internal/infra/web/handlers_factory"
 
 	_ "goal-api/docs"
@@ -37,18 +37,18 @@ type TeamCreate struct {
 //	@Failure		500
 //	@Router			/teams [POST]
 func CreateTeam(w http.ResponseWriter, r *http.Request) {
-	teamHandlers := handlers_factory.MakeTeamHandlers(postgres.GetInstance())
+	teamHandlers := handlers_factory.MakeTeamHandlers(db.GetGoquInstance())
 	teamHandlers.CreateTeamHandler(w, r)
 }
 
-//	@title			Goal API
-//	@version		1.0
-//	@description	Goal API
-//	@termsOfService	http://swagger.io/terms/
-//	@license.name	Apache 2.0
-//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
-//	@host
-//	@BasePath	/
+// @title			Goal API
+// @version		1.0
+// @description	Goal API
+// @termsOfService	http://swagger.io/terms/
+// @license.name	Apache 2.0
+// @license.url	http://www.apache.org/licenses/LICENSE-2.0.html
+// @host
+// @BasePath	/
 func Router() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", version)
